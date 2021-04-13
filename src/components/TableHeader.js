@@ -11,29 +11,7 @@ export default function TableHeader(props){
       return (
         <div className="row table-head asrt-table-head" id={(props.id) ? props.id + "-table-head" : ""}>
           <div className="col-md-6">
-            {(props.config.show_length_menu) ? (
-              <div className="input-group asrt-page-length">
-                <div className="input-group-addon input-group-prepend">
-                  <span className="input-group-text" style={style.table_size}>
-                    {(props.lengthMenuText[0]) ? props.lengthMenuText[0] : ''}
-                  </span>
-                </div>
-                {(includes(props.config.language.length_menu, '_MENU_')) ? (
-                  <select type="text" className="form-control" style={style.table_size_dropdown}
-                    onChange={props.changePageSize}>
-                    {props.config.length_menu.map((value, key) => {
-                      return (<option key={value}>{value}</option>);
-                    })}
-                    <option value={props.recordLength}>All</option>
-                  </select>
-                ) : null}
-                <div className="input-group-addon input-group-prepend">
-                  <span className="input-group-text" style={style.table_size}>
-                    {(props.lengthMenuText[1]) ? props.lengthMenuText[1] : ''}
-                  </span>
-                </div>
-              </div>
-            ) : null}
+
           </div>
           <div className="col-md-6 float-right text-right">
             {(props.config.show_filter) ? (

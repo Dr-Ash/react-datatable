@@ -445,8 +445,6 @@ class ReactDatatable extends Component {
         <TableHeader
           config={this.config}
           id={this.props.id}
-          lengthMenuText={lengthMenuText}
-          recordLength={(this.props.dynamic) ? this.props.total_record : this.props.records.length}
           filterRecords={this.filterRecords.bind(this)}
           changePageSize={this.changePageSize.bind(this)}
           exportToExcel={this.exportToExcel.bind(this)}
@@ -533,6 +531,8 @@ class ReactDatatable extends Component {
         </div>
         <TableFooter
           config={this.config}
+          lengthMenuText={lengthMenuText}
+          recordLength={(this.props.dynamic) ? this.props.total_record : this.props.records.length}
           id={this.props.id}
           isFirst={isFirst}
           isLast={isLast}

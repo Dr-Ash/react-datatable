@@ -478,14 +478,14 @@ class ReactDatatable extends Component {
 
                       if (column.text && typeof column.text === "function") {
                         return (
-                            <td className={column.className} key={(column.key) ? column.key : column.text}>
+                            <th className={column.className} key={(column.key) ? column.key : column.text}>
                               {column.text()}
-                            </td>
+                            </th>
                         );
                       }else {
-                        return <td className={column.className} key={(column.key) ? column.key : column.text}>
+                        return <th className={column.className} key={(column.key) ? column.key : column.text}>
                           {column.text}
-                        </td>
+                        </th>
                       }
 
                       return (<th

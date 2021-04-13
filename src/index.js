@@ -209,8 +209,8 @@ class ReactDatatable extends Component {
     let filterRecords = this.props.records;
     if(this.props.dynamic === false){
       let records = this.sortRecords(),
-        filterValue = this.state.filter_value;
-        filterRecords = records;
+          filterValue = this.state.filter_value;
+      filterRecords = records;
 
       if (filterValue) {
         filterRecords = this.filterData(records);
@@ -223,7 +223,7 @@ class ReactDatatable extends Component {
       for (let column of this.props.columns) {
         if (column.cell && typeof column.cell === "function") {
           let cellData =  ReactDOMServer.renderToStaticMarkup(column.cell(record, i));
-              cellData = this.strip(cellData);
+          cellData = this.strip(cellData);
           tableHtml += "<td>" + cellData + "</td>";
         }else if (record[column.key]) {
           tableHtml += "<td>" + record[column.key] + "</td>";
@@ -243,14 +243,14 @@ class ReactDatatable extends Component {
     let downloadLink, dataType = 'application/vnd.ms-excel';
 
     let tableHtml = this.getExportHtml();
-    
+
     // Specify file name
     let filename = this.config.filename ? this.config.filename + '.xls':'table.xls';
     // Create download link element
     downloadLink = document.createElement("a");
     if(navigator.msSaveOrOpenBlob){
       let blob = new Blob(['\ufeff', tableHtml], {
-          type: dataType
+        type: dataType
       });
       navigator.msSaveOrOpenBlob(blob, filename);
     }else{
@@ -310,8 +310,8 @@ class ReactDatatable extends Component {
     let filterRecords = this.props.records;
     if(this.props.dynamic === false){
       let records = this.sortRecords(),
-        filterValue = this.state.filter_value;
-        filterRecords = records;
+          filterValue = this.state.filter_value;
+      filterRecords = records;
 
       if (filterValue) {
         filterRecords = this.filterData(records);
@@ -322,11 +322,11 @@ class ReactDatatable extends Component {
     // add data rows in sheet array
     for (let i in filterRecords) {
       let record = filterRecords[i],
-        newRecord = {};
+          newRecord = {};
       for (let column of this.props.columns) {
         if (column.cell && typeof column.cell === "function") {
           let cellData =  ReactDOMServer.renderToStaticMarkup(column.cell(record, i));
-              cellData = this.strip(cellData);
+          cellData = this.strip(cellData);
           newRecord[column.key] = cellData;
         } else if (record[column.key]) {
           let colValue  = record[column.key];
@@ -391,7 +391,7 @@ class ReactDatatable extends Component {
       return _.orderBy(this.props.records, o => {
         let colVal = o[this.state.sort.column];
         let typeofColVal = typeof colVal;
-        
+
         if (typeofColVal == "string") {
           if (isNaN(colVal)) {
             return new String(colVal.toLowerCase());
@@ -411,8 +411,8 @@ class ReactDatatable extends Component {
     let filterRecords, totalRecords, pages, isFirst, isLast;
     if(this.props.dynamic === false){
       let records = (this.props.onSort) ? this.props.onSort(this.state.sort.column, this.props.records, this.state.sort.order) : this.sortRecords(),
-        filterValue = this.state.filter_value;
-        filterRecords = records;
+          filterValue = this.state.filter_value;
+      filterRecords = records;
 
       if (filterValue) {
         filterRecords = this.filterData(records);
@@ -441,28 +441,30 @@ class ReactDatatable extends Component {
     paginationInfo = paginationInfo.replace('_END_', endRecords);
     paginationInfo = paginationInfo.replace('_TOTAL_', totalRecords);
     return (
-      <div className="as-react-table" id={(this.props.id) ? this.props.id + "-container" : ""}>
-        <TableHeader
-          config={this.config}
-          id={this.props.id}
-          filterRecords={this.filterRecords.bind(this)}
-          changePageSize={this.changePageSize.bind(this)}
-          exportToExcel={this.exportToExcel.bind(this)}
-          exportToCSV={this.exportToCSV.bind(this)}
-          exportToPDF={this.exportToPDF.bind(this)}
-          extraButtons={this.props.extraButtons}/>
-        <div className="row table-body asrt-table-body" style={style.table_body} id={(this.props.id) ? this.props.id + "-table-body" : ""}>
-          <div className="col-md-12">
-            <table className={this.props.className} id={this.props.id}>
-              <thead className={this.props.tHeadClassName ? this.props.tHeadClassName : ''}>
+        <div className="as-react-table" id={(this.props.id) ? this.props.id + "-container" : ""}>
+          <TableHeader
+              config={this.config}
+              id={this.props.id}
+              filterRecords={this.filterRecords.bind(this)}
+              changePageSize={this.changePageSize.bind(this)}
+              exportToExcel={this.exportToExcel.bind(this)}
+              exportToCSV={this.exportToCSV.bind(this)}
+              exportToPDF={this.exportToPDF.bind(this)}
+              extraButtons={this.props.extraButtons}/>
+          <div className="row table-body asrt-table-body" style={style.table_body} id={(this.props.id) ? this.props.id + "-table-body" : ""}>
+            <div className="col-md-12">
+              <table className={this.props.className} id={this.props.id}>
+                <thead className={this.props.tHeadClassName ? this.props.tHeadClassName : ''}>
                 <tr>
                   {
                     this.props.columns.map((column, index) => {
                       let classText = (column.sortable) ? "sortable " : "",
-                      width = (column.width) ? column.width : "",
-                      align = (column.align) ? column.align : "",
-                      sortOrder = "",
-                      columnStyle = {};
+                          width = (column.width) ? column.width : "",
+                          align = (column.align) ? column.align : "",
+                          sortOrder = "",
+                          columnStyle = {},
+                          textValue = ""
+                      ;
                       if (column.sortable && this.state.sort.column == column.key) {
                         sortOrder = this.state.sort.order;
                         classText += (sortOrder) ? " " + sortOrder : "";
@@ -472,96 +474,111 @@ class ReactDatatable extends Component {
                       classText += " text-" + align;
                       if(column.TrOnlyClassName)
                         classText += " " + column.TrOnlyClassName;
+
+
+                      if (column.text && typeof column.text === "function") {
+                        return (
+                            <td className={column.className} key={(column.key) ? column.key : column.text}>
+                              {column.text()}
+                            </td>
+                        );
+                      }else {
+                        return <td className={column.className} key={(column.key) ? column.key : column.text}>
+                          {column.text}
+                        </td>
+                      }
+
                       return (<th
-                        key={(column.key) ? column.key : column.text}
-                        className={classText}
-                        width={width}
-                        style={columnStyle}
-                        onClick={event => this.sortColumn(event, column, sortOrder)}>
+                          key={(column.key) ? column.key : column.text}
+                          className={classText}
+                          width={width}
+                          style={columnStyle}
+                          onClick={event => this.sortColumn(event, column, sortOrder)}>
+
                         {column.text}
                       </th>);
                     })
                   }
                 </tr>
-              </thead>
-              <tbody>
+                </thead>
+                <tbody>
                 {this.props.loading === true ? (
-                  <tr>
-                    <td colSpan={this.props.columns.length} className="asrt-td-loading" align="center">
-                      <div className="asrt-loading-textwrap">
+                    <tr>
+                      <td colSpan={this.props.columns.length} className="asrt-td-loading" align="center">
+                        <div className="asrt-loading-textwrap">
                         <span className="asrt-loading-text">
                           {this.config.language.loading_text}
                         </span>
-                      </div>
-                    </td>
-                  </tr>
+                        </div>
+                      </td>
+                    </tr>
                 ) : (
-                  (filterRecords.length) ? 
-                    filterRecords.map((record, rowIndex) => {
-                      rowIndex = _.indexOf(this.props.records, record);
-                      return (
-                        <tr key={record[this.config.key_column]} onClick={(e) => this.props.onRowClicked(e, record, rowIndex)}>
-                          {
-                            this.props.columns.map((column, colIndex) => {
-                              if (column.cell && typeof column.cell === "function") {
-                                return (<td className={column.className} key={(column.key) ? column.key : column.text}>{column.cell(record,rowIndex)}</td>);
-                              }else if (record[column.key]) {
-                                return (<td className={column.className} key={(column.key) ? column.key : column.text}>
-                                  {record[column.key]}
-                                </td>);
-                              }else {
-                                return <td className={column.className} key={(column.key) ? column.key : column.text}></td>
-                              }
-                            })
-                          }
-                        </tr>
-                      )
-                    }) : 
-                    (
-                      <tr>
-                        <td colSpan={this.props.columns.length} align="center">
-                          {this.config.language.no_data_text}
-                        </td>
-                      </tr>
-                    )
+                    (filterRecords.length) ?
+                        filterRecords.map((record, rowIndex) => {
+                          rowIndex = _.indexOf(this.props.records, record);
+                          return (
+                              <tr key={record[this.config.key_column]} onClick={(e) => this.props.onRowClicked(e, record, rowIndex)}>
+                                {
+                                  this.props.columns.map((column, colIndex) => {
+                                    if (column.cell && typeof column.cell === "function") {
+                                      return (<td className={column.className} key={(column.key) ? column.key : column.text}>{column.cell(record,rowIndex)}</td>);
+                                    }else if (record[column.key]) {
+                                      return (<td className={column.className} key={(column.key) ? column.key : column.text}>
+                                        {record[column.key]}
+                                      </td>);
+                                    }else {
+                                      return <td className={column.className} key={(column.key) ? column.key : column.text}></td>
+                                    }
+                                  })
+                                }
+                              </tr>
+                          )
+                        }) :
+                        (
+                            <tr>
+                              <td colSpan={this.props.columns.length} align="center">
+                                {this.config.language.no_data_text}
+                              </td>
+                            </tr>
+                        )
                 )}
-              </tbody>
-            </table>
+                </tbody>
+              </table>
+            </div>
           </div>
+          <TableFooter
+              config={this.config}
+              lengthMenuText={lengthMenuText}
+              recordLength={(this.props.dynamic) ? this.props.total_record : this.props.records.length}
+              id={this.props.id}
+              isFirst={isFirst}
+              isLast={isLast}
+              paginationInfo={paginationInfo}
+              pages={pages}
+              page_number={this.state.page_number}
+              is_temp_page={this.state.is_temp_page}
+              temp_page_number={this.state.temp_page_number}
+              firstPage={this.firstPage.bind(this)}
+              lastPage={this.lastPage.bind(this)}
+              previousPage={this.previousPage.bind(this)}
+              nextPage={this.nextPage.bind(this)}
+              goToPage={this.goToPage.bind(this)}
+              changePageSize={this.changePageSize.bind(this)}
+              onPageChange={this.onPageChange.bind(this)}
+              onPageBlur={this.onPageBlur.bind(this)}/>
         </div>
-        <TableFooter
-          config={this.config}
-          lengthMenuText={lengthMenuText}
-          recordLength={(this.props.dynamic) ? this.props.total_record : this.props.records.length}
-          id={this.props.id}
-          isFirst={isFirst}
-          isLast={isLast}
-          paginationInfo={paginationInfo}
-          pages={pages}
-          page_number={this.state.page_number}
-          is_temp_page={this.state.is_temp_page}
-          temp_page_number={this.state.temp_page_number}
-          firstPage={this.firstPage.bind(this)}
-          lastPage={this.lastPage.bind(this)}
-          previousPage={this.previousPage.bind(this)}
-          nextPage={this.nextPage.bind(this)}
-          goToPage={this.goToPage.bind(this)}
-          changePageSize={this.changePageSize.bind(this)}
-          onPageChange={this.onPageChange.bind(this)}
-          onPageBlur={this.onPageBlur.bind(this)}/>
-      </div>
     )
   }
 }
 
 /**
-* Define component display name
-*/
+ * Define component display name
+ */
 ReactDatatable.displayName = 'ReactDatatable';
 
 /**
-* Define defaultProps for this component
-*/
+ * Define defaultProps for this component
+ */
 ReactDatatable.defaultProps = {
   id: "as-react-datatable",
   className: "table table-bordered table-striped",

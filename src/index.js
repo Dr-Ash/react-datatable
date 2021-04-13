@@ -451,9 +451,10 @@ class ReactDatatable extends Component {
               exportToCSV={this.exportToCSV.bind(this)}
               exportToPDF={this.exportToPDF.bind(this)}
               extraButtons={this.props.extraButtons}/>
-          <div className="row table-body asrt-table-body" style={style.table_body} id={(this.props.id) ? this.props.id + "-table-body" : ""}>
-            <div className="col-md-12">
-              <table className={this.props.className} id={this.props.id}>
+
+              <div className="table-body asrt-table-body" style={style.table_body} id={(this.props.id) ? this.props.id + "-table-body" : ""}>
+
+                <table className={this.props.className} id={this.props.id}>
                 <thead className={this.props.tHeadClassName ? this.props.tHeadClassName : ''}>
                 <tr>
                   {
@@ -544,7 +545,6 @@ class ReactDatatable extends Component {
                 )}
                 </tbody>
               </table>
-            </div>
           </div>
           <TableFooter
               config={this.config}

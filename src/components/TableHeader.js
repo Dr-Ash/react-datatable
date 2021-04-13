@@ -1,5 +1,4 @@
 import React from 'react';
-import includes from 'lodash/includes';
 import style from '../style';
 
 export default function TableHeader(props){

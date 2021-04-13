@@ -1,6 +1,7 @@
 import React from 'react';
 import Pagination from './Pagination';
 import ADPagination from './ADPagination';
+import includes from 'lodash/includes';
 import style from "../style";
 
 export default function TableFooter(props){

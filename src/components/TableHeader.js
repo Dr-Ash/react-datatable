@@ -1,7 +1,6 @@
 import React from 'react';
 import style from '../style';
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 
 export default function TableHeader(props){

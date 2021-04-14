@@ -27,6 +27,8 @@ export default function TableHeader(props){
                     </Grid>
                     <Grid item xs={6}>
 
+                        {props.extraPlusButton}
+
                         <div className="table_tools" style={style.table_tool}>
                             {(props.config.button.excel) ? (
                                 <button className="btn btn-primary buttons-excel"
@@ -35,9 +37,9 @@ export default function TableHeader(props){
                                         title="Export to Excel"
                                         style={style.table_tool_btn}
                                         onClick={props.exportToExcel}>
-                  <span>
-                    <i className="fa fa-file-excel-o" aria-hidden="true"></i>
-                  </span>
+                                    <span>
+                                      <i className="fa fa-file-excel-o" aria-hidden="true"></i>
+                                    </span>
                                 </button>
                             ) : null}
                             {(props.config.button.csv) ? (
@@ -47,9 +49,9 @@ export default function TableHeader(props){
                                         title="Export to CSV"
                                         style={style.table_tool_btn}
                                         onClick={props.exportToCSV}>
-                  <span>
-                    <i className="fa fa-file-text-o" aria-hidden="true"></i>
-                  </span>
+                                    <span>
+                                      <i className="fa fa-file-text-o" aria-hidden="true"></i>
+                                    </span>
                                 </button>
                             ) : null}
                             {(props.config.button.print) ? (
@@ -59,11 +61,12 @@ export default function TableHeader(props){
                                         title="Export to PDF"
                                         style={style.table_tool_btn}
                                         onClick={props.exportToPDF}>
-                  <span>
-                    <i className="glyphicon glyphicon-print fa fa-print" aria-hidden="true"></i>
-                  </span>
+                                    <span>
+                                      <i className="glyphicon glyphicon-print fa fa-print" aria-hidden="true"></i>
+                                    </span>
                                 </button>
                             ) : null}
+
                             {(props.config.button.extra==true) ? (
                                 props.extraButtons.map((elem,index)=>{
                                     elem.clickCount=0;

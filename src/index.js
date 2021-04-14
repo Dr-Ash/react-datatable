@@ -66,6 +66,7 @@ class ReactDatatable extends Component {
       page_number: 1,
       sort: (props.config && props.config.sort) ? props.config.sort : false
     };
+    this.extraPlusButton = props.extraPlusButton;
   }
 
   filterRecords(e) {
@@ -450,7 +451,9 @@ class ReactDatatable extends Component {
               exportToExcel={this.exportToExcel.bind(this)}
               exportToCSV={this.exportToCSV.bind(this)}
               exportToPDF={this.exportToPDF.bind(this)}
-              extraButtons={this.props.extraButtons}/>
+              extraButtons={this.props.extraButtons}
+              extraPlusButton={this.extraPlusButton}
+          />
 
               <div className="table-body asrt-table-body" style={style.table_body} id={(this.props.id) ? this.props.id + "-table-body" : ""}>
 

@@ -9,8 +9,7 @@ export default function TableFooter(props){
     if(props.config.show_info==true || props.config.show_pagination==true){
         return (
             <div className="table-foot asrt-table-foot" id={(props.id) ? props.id + "-table-foot" : ""}>
-                <Grid container>
-
+                <Grid container alignItems="center">
                     <Grid item xs={6}>
                         {(props.config.show_info) ? props.paginationInfo : null}
 
@@ -74,13 +73,7 @@ export default function TableFooter(props){
                             </nav>
                         ) : null}
                     </Grid>
-
                 </Grid>
-
-
-
-
-
             </div>
         );
     } else {

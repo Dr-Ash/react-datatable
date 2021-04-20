@@ -521,7 +521,12 @@ class ReactDatatable extends Component {
                         filterRecords.map((record, rowIndex) => {
                           rowIndex = _.indexOf(this.props.records, record);
                           return (
-                              <tr key={record[this.config.key_column]} onClick={(e) => this.props.onRowClicked(e, record, rowIndex)}>
+                              <tr key={record[this.config.key_column]}
+                                  onMouseEnter={(e)=>this.props.onRowHovered(true,e, record, rowIndex)}
+                                  onMouseLeave={(e)=>this.props.onRowHovered(false,e, record, rowIndex)}
+
+                                  onClick={(e) => this.props.onRowClicked(e, record, rowIndex)}
+                              >
                                 {
                                   this.props.columns.map((column, colIndex) => {
                                     if (column.cell && typeof column.cell === "function") {
@@ -624,7 +629,8 @@ ReactDatatable.defaultProps = {
   total_record: 0,
   onChange: () => { },
   onPageChange: () => { },
-  onRowClicked: () => { }
+  onRowClicked: () => { },
+  onRowHovered: () => { }
 }
 
 export default ReactDatatable;
